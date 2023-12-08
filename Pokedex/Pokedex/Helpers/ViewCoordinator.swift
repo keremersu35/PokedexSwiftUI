@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct ViewCoordinator: View {
+    @State private var isActive = false
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        if isActive {
+            PokemonList()
+        }else {
+            SplashScreen(isActive: $isActive)
+        }
     }
-}
-
-#Preview {
-    ViewCoordinator()
 }

@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+enum Constants: String {
+    
+    case logo
+    case loading
+}
