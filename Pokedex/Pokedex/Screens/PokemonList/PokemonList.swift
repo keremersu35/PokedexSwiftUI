@@ -8,8 +8,25 @@
 import SwiftUI
 
 struct PokemonList: View {
+    @State var searchText: String = ""
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            TextField("Placeholder", text: $searchText)
+                .padding(10)
+                .background(Color.black.opacity(0.1))
+                .cornerRadius(12)
+                .padding(.small)
+        }
+        .background(.pokedexBlue)
+        ScrollView {
+            LazyVStack(content: {
+                ForEach(1...30, id: \.self) { count in
+                    PokemonCard(id: 341, name: "Poseidon", imageUrl: "")
+                }
+            })
+            .padding(.horizontal, .small)
+        }
     }
 }
 
