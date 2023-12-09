@@ -21,7 +21,7 @@ open class APIClient<M: BaseEndpoint>: APIClientProtocol {
             return Fail(error: APIError.invalidURL).eraseToAnyPublisher()
         }
 
-        var request = URLRequest(url: URL(string: "https://pokeapi.co/api/v2/pokemon")!)
+        var request = URLRequest(url: url)
         request.httpMethod = endpoint.method.rawValue
 
         endpoint.headers?.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
