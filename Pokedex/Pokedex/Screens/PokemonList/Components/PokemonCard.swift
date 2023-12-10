@@ -2,7 +2,7 @@
 //  PokemonCard.swift
 //  Pokedex
 //
-//  Created by Kerem Ersu on 8.12.2023.
+//  Created by Kerem Ersu on 9.12.2023.
 //
 
 import SwiftUI
@@ -15,12 +15,12 @@ struct PokemonCard: View {
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: .small) {
-                Text("\(id)")
+                Text("#\(id)")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundColor(.white)
                     .font(.title2)
                     .fontWeight(.semibold)
-                Text(name)
+                Text(name.capitalizeFirstLetter())
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundColor(.white)
                     .font(.title2)
@@ -33,7 +33,7 @@ struct PokemonCard: View {
                           .aspectRatio(contentMode: .fill)
                           
                   } placeholder: {
-                      Color.gray
+                      Color.clear
                   }
                   .frame(width: 100, height: 100)
             Spacer()
@@ -51,3 +51,4 @@ struct PokemonCard: View {
 #Preview {
     PokemonCard(id: 4, name: "Pokemon", imageUrl: "")
 }
+

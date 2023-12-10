@@ -12,12 +12,10 @@ open class APIClient<M: BaseEndpoint>: APIClientProtocol {
         if endpoint.showOverlay {
             
         }
-        var urlComponents = URLComponents()
-        urlComponents.scheme = endpoint.scheme.rawValue
-        urlComponents.host = endpoint.baseURL.host
-        urlComponents.path = endpoint.path
-
-        guard let url = urlComponents.url else {
+        var urlComponents = URLComponents(string: endpoint.baseURL.absoluteString + endpoint.path)
+        urlComponents?.scheme = endpoint.scheme.rawValue
+        
+        guard let url = urlComponents?.url else {
             return Fail(error: APIError.invalidURL).eraseToAnyPublisher()
         }
 
@@ -30,7 +28,7 @@ open class APIClient<M: BaseEndpoint>: APIClientProtocol {
         case .requestParameters(parameters: let parameters, parameterEncoding: let encoding):
             switch encoding {
             case .queryString:
-                urlComponents.queryItems = endpoint.parameters?.map { URLQueryItem(name: $0.key, value: String(describing: $0.value)) }
+                urlComponents?.queryItems = endpoint.parameters?.map { URLQueryItem(name: $0.key, value: String(describing: $0.value)) }
             case .httpBody:
                 do {
                     request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
