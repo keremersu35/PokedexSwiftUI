@@ -11,4 +11,5 @@ enum Constants: String {
     
     case logo
     case loading
+    case star
 }
