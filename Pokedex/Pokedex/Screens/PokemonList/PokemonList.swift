@@ -22,14 +22,26 @@ struct PokemonList: View {
             if !viewModel.isLoading {
                 ScrollView {
                     LazyVStack(content: {
-                        ForEach(viewModel.pokemons?.results ?? [], id: \.name) { pokemon in
+                        ForEach(viewModel.pokemons ?? [], id: \.name) { pokemon in
                             PokemonCard(id: pokemon.getPokemonId(), name: pokemon.name, imageUrl: pokemon.getImageUrl())
+                                .onAppear {
+                                    if viewModel.isLastItem(pokemon: pokemon) {
+                                        viewModel.loadMore()
+                                    }
+                                }
                         }
                     })
                     .padding(.horizontal, .small)
                 }
+                .refreshable {
+                    viewModel.fetchPokemons()
+                }
             } else {
-                ProgressView()
+                VStack {
+                    LottieView(lottieFile: Constants.loading.rawValue)
+                        .frame(width: .large, height: .large)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
         .onAppear {
