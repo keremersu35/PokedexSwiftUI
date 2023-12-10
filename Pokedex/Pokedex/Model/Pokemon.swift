@@ -7,19 +7,19 @@
 
 import Foundation
 
-struct Pokemon: Codable {
+struct Pokemon: Decodable {
     let count: Int
     let next: String
     let previous: String?
     let results: [Result]
 }
 
-struct Result: Codable {
+struct Result: Decodable, Equatable {
     let name: String
     let url: String
 
     func getPokemonId() -> Int {
-        return Int(url.split(separator: "/").dropLast().last ?? "") ?? 0
+        return Int(url.split(separator: "/").last ?? "") ?? 0
     }
 
     func getImageUrl() -> String {
