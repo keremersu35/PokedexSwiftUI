@@ -12,4 +12,12 @@ enum Constants: String {
     case logo
     case loading
     case star
+    case chevronLeft = "chevron.left"
+    case about = "About"
+    case stats = "Stats"
+    case id = "ID"
+    case name = "Name"
+    case height = "Height"
+    case weight = "Weight"
+    case baseExperience = "Base Experience"
 }
