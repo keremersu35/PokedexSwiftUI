@@ -11,6 +11,7 @@ struct PokemonCard: View {
     var id: Int
     var name: String
     var imageUrl: String
+    @State var averageColor: Color = .clear
     
     var body: some View {
         HStack(alignment: .top) {
@@ -31,7 +32,6 @@ struct PokemonCard: View {
                       image
                           .resizable()
                           .aspectRatio(contentMode: .fill)
-                          
                   } placeholder: {
                       Color.clear
                   }
@@ -42,9 +42,19 @@ struct PokemonCard: View {
                 .foregroundColor(.white)
         }
         .padding()
-        .background(LinearGradient(colors: [Color.accentColor, Color.green], startPoint: .leading, endPoint: .trailing))
+        .background(LinearGradient(colors: [averageColor, averageColor.opacity(0.7)], startPoint: .leading, endPoint: .trailing))
         .cornerRadius(12)
-
+        .onAppear {
+            Task {
+                averageColor = await setAverageColor()
+            }
+        }
+    }
+    
+    private func setAverageColor() async -> Color {
+        var color: UIColor?
+        color = UIImage(data: try! Data(contentsOf: URL(string: imageUrl)!))!.findAverageColor() ?? .clear
+        return Color(uiColor: color!)
     }
 }
 
