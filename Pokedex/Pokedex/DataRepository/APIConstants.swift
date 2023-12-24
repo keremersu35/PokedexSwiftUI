@@ -11,7 +11,7 @@ enum APIConstants: String {
     
     case baseURL = "pokeapi.co/api/v2"
     case pokemonListPath = "/pokemon"
-    case pokemonDetailPath = "/pokemondet"
+    case pokemonDetailPath = "/pokemon/"
     case offset = "offset"
     case id = "id"
 }

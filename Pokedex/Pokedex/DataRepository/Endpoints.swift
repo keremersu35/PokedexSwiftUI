@@ -21,7 +21,7 @@ extension Endpoints : BaseEndpoint {
         case .pokemonList(offset: let offset):
             return [APIConstants.offset.rawValue: offset]
         case .pokemonDetail(id: let id):
-            return [APIConstants.id.rawValue: id]
+            return nil
         }
     }
     
@@ -33,8 +33,8 @@ extension Endpoints : BaseEndpoint {
         switch self {
         case .pokemonList:
             return APIConstants.pokemonListPath.rawValue
-        case .pokemonDetail:
-            return APIConstants.pokemonDetailPath.rawValue
+        case .pokemonDetail(id: let id):
+            return "\(APIConstants.pokemonDetailPath.rawValue)\(id)"
         }
     }
     
